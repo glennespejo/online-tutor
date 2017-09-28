@@ -154,7 +154,7 @@ class SectionController extends Controller
             unset($data['section_id']); 
             $teacher_data['value'] = $data;
             $teacher_data['key']    = 'exams';
-            TeacherData::create()
+            // TeacherData::create()
             \DB::commit();
             $msg = 'Delete Success!';
         } catch (\Exception $e) {
