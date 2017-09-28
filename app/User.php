@@ -37,6 +37,7 @@ class User extends Authenticatable
             'index' => route('users.index'),
             'show' => route('users.show', '@id'),
             'hide_edit' => true,
+            'hide_view' => true,
         ]);
     }
 }

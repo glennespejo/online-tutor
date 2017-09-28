@@ -15,9 +15,10 @@
         <!-- right column -->
         <div class="col-xs-12">
           <!-- general form elements disabled -->
-          <div class="box box-primary">
+          <div class="box box-success">
             <div class="box-header with-border">
-            <button type="button" id="create_section" class="btn btn-primary btn-sm pull-right">Create Section</button>
+            <h2 class="box-title">IP ADDRESS: {{getHostByName(getHostName())}}</h2>
+            <button type="button" id="create_section" class="btn btn-success btn-sm pull-right">Create Section</button>
             </div>
             <!-- /.box-header -->
               <div class="box-body">

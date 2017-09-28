@@ -15,7 +15,7 @@
         <!-- right column -->
         <div class="col-xs-12">
           <!-- general form elements disabled -->
-          <div class="box box-primary">
+          <div class="box box-success">
             <div class="box-header with-border">
               <!-- <h3 class="box-title">Bus List</h3> -->
             </div>
@@ -28,17 +28,15 @@
                     <tr>
                       <th>Student ID</th>
                       <th>Name</th>
-                      <th>Password</th>
                       <th class="no-sort">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if($user->where('role', 'user')->get())
+                    @if($user->where('role', 'student')->get())
                       @foreach($user->where('role', 'user')->get() as $key => $value)
                         <tr>
                           <td>{{$value->id}}</td>
                           <td>{{$value->name}}</td>
-                          <td>{{ \Crypt::decrypt($value->raw_password)}}</td>
                           <td>{!!view('actions', ['itemID'=>$value->id])->render()!!}</td>
                         </tr>
                       @endforeach
@@ -48,7 +46,6 @@
                     <tr>
                       <th>Student ID</th>
                       <th>Name</th>
-                      <th>Password</th>
                       <th class="no-sort">Action</th>
                     </tr>
                     </tfoot>

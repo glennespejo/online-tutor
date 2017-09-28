@@ -201,7 +201,8 @@ class UserController extends Controller
 
     public function teacherSection($id)
     {
-        $students = StudentSection::where('section_id')->get();
-        return view('teacher.section', compact('students'));
+        $students = StudentSection::where('section_id',$id)->get();
+        $section = Section::find($id);
+        return view('teacher.section', compact('students','section'));
     }
 }

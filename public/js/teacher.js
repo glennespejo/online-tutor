@@ -39,6 +39,10 @@ $(function () {
     $(this).Teacher(actionTeacher,item_id);
   });
 
+  if (config.hide_view !== 'undefined' && config.hide_view) {
+      $(".view.btn").hide();
+  }
+
 });
 
 
