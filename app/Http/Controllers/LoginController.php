@@ -26,6 +26,12 @@ class LoginController extends Controller
                 'message' => 'Incorrect password.',
             ], 400);
         }
+        if ($user->role != "student") {
+            return response()->json([
+                'error' => 'invalid_user.',
+                'message' => 'User is not a student.',
+            ], 400);
+        }
         return $user;
     }
 
