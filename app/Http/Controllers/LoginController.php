@@ -58,7 +58,8 @@ class LoginController extends Controller
         }
         $password = \Hash::make($request->password);
         $request->request->set('password', $password);
-        $request->request->set('raw_password', $request->password_confirm);
+
+        $request->request->set('raw_password', \Crypt::encrypt($request->password_confirm));
         $user = new User;
         $user->fill($request->all())->save();
         return $user;
