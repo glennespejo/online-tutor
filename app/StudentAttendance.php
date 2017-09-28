@@ -7,10 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class StudentAttendance extends Model
 {
     protected $fillable = [
-        'subject_code',
-        'teacher_id',
+        'section_code',
         'student_id',
         'date',
-        'status',
     ];
 }

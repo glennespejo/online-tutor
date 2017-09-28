@@ -26,3 +26,4 @@ Route::post('/current/location', 'BusApiController@busCurrent');
 
 Route::post('/checkip', 'ICOapiController@checkIp');
 Route::get('/get/sections', 'ICOapiController@getSubj');
+Route::post('/attendance', 'ICOapiController@attendance');
