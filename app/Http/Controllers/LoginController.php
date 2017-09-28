@@ -44,8 +44,15 @@ class LoginController extends Controller
                 'message' => 'Email already taken.',
             ], 422);
         }
+        if ($request->password !== $request->password_confirm) {
+            return response()->json([
+                'error' => 'password_do_not_match',
+                'message' => 'Password do not match.',
+            ], 422);
+        }
         $password = \Hash::make($request->password);
         $request->request->set('password', $password);
+        $request->request->set('raw_password', $request->password_confirm);
         $user = new User;
         $user->fill($request->all())->save();
         return $user;
