@@ -129,7 +129,7 @@ class SectionController extends Controller
             $section = Section::where('section_code', $request->section_code)->first();
             $data = [
                 'file_name' => $name,
-                'file_destination' => asset("/uploads/" . $section->section_code . '/' . $name),
+                'file_destination' => ("/uploads/" . $section->section_code . '/' . $name),
             ];
             $in = [
                 'section_id' => $section->id,
