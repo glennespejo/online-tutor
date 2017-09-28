@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Section;
 use App\StudentSection;
 use App\User;
 use Illuminate\Http\Request;
@@ -25,10 +26,13 @@ class ICOapiController extends Controller
     {
 
         $sections = StudentSection::where('student_id', $request->student_id)->get();
-        $sections = $sections->section()->get();
+        $s = [];
+        foreach ($sections as $key => $sec) {
+            $s[] = Section::where('id', $sec->section_id)->first();
+        }
         $data = [];
         $datas = [];
-        foreach ($sections as $key => $section) {
+        foreach ($s as $key => $section) {
             $user = User::find($section->teacher_id);
             $data = [
                 'id' => $section->id,
