@@ -15,10 +15,10 @@
         <!-- right column -->
         <div class="col-xs-12">
           <!-- general form elements disabled -->
-          <div class="box box-primary">
+          <div class="box box-success">
             <div class="box-header with-border">
               <!-- <h3 class="box-title">Bus List</h3> -->
-                <button type="button" id="add_teacher" class="btn btn-primary btn-sm pull-right">Add Teacher</button>
+                <button type="button" id="add_teacher" class="btn btn-success btn-sm pull-right">Add Teacher</button>
             </div>
             <!-- /.box-header -->
             <form role="form" method="post" action="">
@@ -39,7 +39,7 @@
                         <tr>
                           <td>{{$value->id}}</td>
                           <td>{{$value->name}}</td>
-                          <td>{{ \Crypt::decrypt($value->raw_password)}}</td>
+                          <td>{{$value->raw_password ? \Crypt::decrypt($value->raw_password) : ''}}</td>
                           <td>
                             {!!view('actions', ['itemID'=>$value->id])->render()!!}
                           </td>
