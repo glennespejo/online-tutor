@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('bus', 'BusController');	
 	Route::resource('route', 'RouteController');	
+	Route::post('/upload/file', 'SectionController@uploadFile');
 
 });
 

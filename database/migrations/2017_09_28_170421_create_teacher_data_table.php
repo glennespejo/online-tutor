@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTeacherDataTable extends Migration
 {
@@ -13,7 +13,7 @@ class CreateTeacherDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('teacher_data', function (Blueprint $table) {
+        Schema::create('teacher_datas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('section_id')->unsigned();
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateTeacherDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teacher_data');
+        Schema::dropIfExists('teacher_datas');
     }
 }

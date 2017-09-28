@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Section;
 use App\StudentAttendance;
 use App\StudentSection;
+use App\TeacherData;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -105,5 +106,36 @@ class ICOapiController extends Controller
         ];
 
         return response()->json($data);
+    }
+
+    public function getFiles(Request $request)
+    {
+        if (!isset($request->section_code)) {
+            return response()->json([
+                'error' => 'section_do_not_exist',
+                'message' => 'Section do not exist.',
+            ], 400);
+        }
+        $section = Section::where('section_code', $request->section_code)->first();
+        if (empty($section)) {
+            return response()->json([
+                'error' => 'section_does_not_exist',
+                'message' => 'Section does not exist.',
+            ], 404);
+        }
+        $files = TeacherData::where('section_id', $section->id)->get();
+        $data = [];
+        $datas = [];
+        foreach ($files as $file) {
+            $data = [
+                'section_code' => $section->section_code,
+                'section_name' => $section->section_name,
+                'teacher_id' => $section->section_name,
+                'file_name' => json_decode($file->value)->file_name,
+                'file_path' => json_decode($file->value)->file_destination,
+            ];
+            $datas[] = $data;
+        }
+        return response()->json($datas);
     }
 }

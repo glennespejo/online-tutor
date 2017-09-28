@@ -107,7 +107,7 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-         try {
+        try {
 
             \DB::beginTransaction();
             $section->delete();
@@ -119,6 +119,29 @@ class SectionController extends Controller
         }
 
         return compact('msg', 'error_message');
+    }
+
+    public function uploadFile(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $name = $file->getClientOriginalName();
+            $section = Section::where('section_code', $request->section_code)->first();
+            $data = [
+                'file_name' => $name,
+                'file_destination' => asset("/uploads/" . $section->section_code . '/' . $name),
+            ];
+            $in = [
+                'section_id' => $section->id,
+                'key' => 'files',
+                'value' => json_encode($data),
+            ];
+            $td = new TeacherData;
+            $td->fill($in)->save();
+            $file->move("uploads/" . $section->section_code, $file->getClientOriginalName());
+            return redirect()->back();
+        }
+        return redirect()->back();
     }
 
     public function storeExam(Request $request)
