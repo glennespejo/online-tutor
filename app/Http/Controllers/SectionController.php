@@ -144,4 +144,23 @@ class SectionController extends Controller
         return redirect()->back();
     }
 
+    public function storeExam(Request $request)
+    {
+        try {
+            \DB::beginTransaction();
+            $data = $request->all();
+            $teacher_data = [];
+            $teacher_data['section_id'] = $data['section_id']; 
+            unset($data['section_id']); 
+            $teacher_data['value'] = $data;
+            $teacher_data['key']    = 'exams';
+            // TeacherData::create()
+            \DB::commit();
+            $msg = 'Delete Success!';
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            $error_message = $e->getMessage();
+        }
+        return compact('msg', 'error_message');
+    }
 }

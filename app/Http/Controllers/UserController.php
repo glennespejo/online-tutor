@@ -201,7 +201,9 @@ class UserController extends Controller
 
     public function teacherSection($id)
     {
-        $section = Section::find($id);
+        $sections = new Section;
+        $section = $sections->find($id);
+        $section_routeConfig = $sections->routeConfig();
 
         if ($section && $section->teacher_id !== \Auth::id())
             dd('Unauthorized! This is not your section.');
@@ -209,6 +211,6 @@ class UserController extends Controller
         $students = StudentSection::where('section_id',$id)->get();
 
 
-        return view('teacher.section', compact('students','section'));
+        return view('teacher.section', compact('students','section', 'section_routeConfig'));
     }
 }
