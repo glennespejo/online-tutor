@@ -33,7 +33,9 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            @each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')
+                            @if (\Auth::user()->role === 'admin')
+                                @each('adminlte::partials.menu-item-top-nav', $adminlte->menu(), 'item')
+                            @endif
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->

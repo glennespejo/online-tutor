@@ -4,7 +4,7 @@
 </div>
 <!-- /.box-header -->
   <div class="box-body">
-    <table id="section_table" class="table table-bordered table-hover">
+    <table id="file_table" class="table table-bordered table-hover">
       <thead>
       <tr>
         <th>#</th>
@@ -30,9 +30,10 @@
 @include('teacher.partials.file_upload_modal')
 @push('js')
   <script type="text/javascript">
-  	$("#upload_file").on('click', function(){
+    $('#file_table').DataTable();
+    $("#upload_file").on('click', function(){
 	  	$('#file').val();
 	    $('#fileModalForm').modal('show');
-	});
+    });
   </script>
 @endpush
