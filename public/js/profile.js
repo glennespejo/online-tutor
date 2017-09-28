@@ -177,8 +177,8 @@ function reload() {
 
 function showErrorMessage(message) {
   swal({
-  title: "Oops! Something went wrong",
-  text: message,
-  icon: "error",
-});
+    title: "Oops! Something went wrong",
+    text: message,
+    icon: "error",
+  });
 }

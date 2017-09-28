@@ -55,6 +55,15 @@
       </div>
     
     @push('js')
-      <script src="{{ asset('js/profile.js')}}"></script>
+      <script type="text/javascript">
+        var config = {!! $section_routeConfig !!};
+        function showErrorMessage(message) {
+          swal({
+            title: "Oops! Something went wrong",
+            text: message,
+            icon: "error",
+          });
+        }
+      </script>
     @endpush
 @stop
