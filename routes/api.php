@@ -24,4 +24,4 @@ Route::post('/all/bus', 'BusApiController@getBuses');
 Route::get('/get/bus', 'BusApiController@takeBus');
 Route::post('/current/location', 'BusApiController@busCurrent');
 
-Route::get('/checkip', 'ICOapiController@checkIp');
+Route::post('/checkip', 'ICOapiController@checkIp');
