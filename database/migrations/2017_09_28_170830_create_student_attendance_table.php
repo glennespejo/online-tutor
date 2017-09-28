@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudenAttendanceTable extends Migration
+class CreateStudentAttendanceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,11 +15,11 @@ class CreateStudenAttendanceTable extends Migration
     {
         Schema::create('student_attendances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('subject_code')->nullable();
+            $table->string('section_code')->nullable();
             $table->string('teacher_id')->nullable();
             $table->string('student_id')->nullable();
             $table->string('date')->nullable();
-            $table->enum('status', ['absent', 'present'])->default('absent');
+            $table->string('status')->default('absent');
             $table->timestamps();
         });
     }
