@@ -51,7 +51,8 @@ class LoginController extends Controller
         return $user;
     }
 
-    public function loginMac(Request $request){
+    public function loginMac(Request $request)
+    {
         if (!isset($request->mac_address)) {
             return response()->json([
                 'error' => 'invalid_credentials',

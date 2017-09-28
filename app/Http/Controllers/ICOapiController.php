@@ -8,6 +8,15 @@ class ICOapiController extends Controller
 {
     public function checkIp(Request $request)
     {
-        return true;
+
+        $ip = gethostbyname(getHostname());
+        if ($request->ip_address === $ip) {
+            return response()->json([
+                'error' => 'ok',
+            ], 200);
+        }
+        return response()->json([
+            'error' => 'not',
+        ], 400);
     }
 }
