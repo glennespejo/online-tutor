@@ -16,8 +16,15 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
+	Route::resource('users', 'UserController');
+	Route::get('profile', 'UserController@profile');
+	Route::get('teacher-section/{section_id}', 'UserController@teacherSection')->name('teacher.section');
+	Route::get('students', 'UserController@index_student');
+	Route::resource('section', 'SectionController');
+
 	Route::resource('bus', 'BusController');	
 	Route::resource('route', 'RouteController');	
+
 });
 
 Auth::routes();

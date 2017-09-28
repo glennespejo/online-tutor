@@ -1,6 +1,6 @@
-## Bus Finder Admin
+## Online Tutor
 
-Admin page for bus finder. 
+Teacher page for online tutor.
 
 ## License
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserMacTable extends Migration
+class CreateSectionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateUserMacTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_macs', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('mac_address');
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-            $table->string('agreement')->default('disagree');
+            $table->string('section_code')->nullable();
+            $table->integer('teacher_id')->unsigned();
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('section_name');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateUserMacTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_mac');
+        Schema::dropIfExists('sections');
     }
 }

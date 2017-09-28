@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'Bus Finder',
+    'title' => 'Instructional Communication',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Bus</b> Finder',
+    'logo' => '<b>Instructional</b> Communication',
 
-    'logo_mini' => '<b>B</b>F',
+    'logo_mini' => '<b>I</b>Co',
 
     /*
     |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'skin' => 'red',
+    'skin' => 'green',
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +58,7 @@ return [
     |
     */
 
-    'layout' => null,
+    'layout' => 'top-nav',
 
     /*
     |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'bus',
+    'dashboard_url' => 'profile',
 
     'logout_url' => 'logout',
 
@@ -110,15 +110,14 @@ return [
     'menu' => [
         'Main Menu',
         [
-            'text'        => 'Bus',
-            'url'         => '/bus',
-            'icon'        => 'bus',
-            'icon_color'  => 'blue',
+            'text'        => 'Teachers',
+            'url'         => '/users',
+            'icon'        => 'users',
         ],
         [
-            'text'        => 'Route',
-            'url'         => '/route',
-            'icon'        => 'road',
+            'text'        => 'Students',
+            'url'         => '/students',
+            'icon'        => 'graduation-cap',
         ]
     ],
 

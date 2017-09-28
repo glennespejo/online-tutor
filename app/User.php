@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'raw_password', 'role'
     ];
 
     /**
@@ -26,4 +26,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function routeConfig()
+    {
+        return json_encode([
+            'update' => route('users.update', '@id'),
+            'store' => route('users.store'),
+            'destroy' => route('users.destroy', '@id'),
+            'index' => route('users.index'),
+            'show' => route('users.show', '@id'),
+            'hide_edit' => true,
+        ]);
+    }
 }
