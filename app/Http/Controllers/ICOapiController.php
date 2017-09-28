@@ -65,6 +65,44 @@ class ICOapiController extends Controller
         }
         $attendance = new StudentAttendance;
         $attendance->fill($request->all())->save();
-        return $attendance;
+        return response()->json($attendance);
+    }
+
+    public function enSect(Request $request)
+    {
+        if (!isset($request->subject_code) || !isset($request->student_id)) {
+            return response()->json([
+                'error' => 'not',
+            ], 400);
+        }
+        $section = Section::where('section_code', $request->subject_code)->first();
+        if (empty($section)) {
+            return response()->json([
+                'error' => 'section_not_exit',
+                'message' => 'Section does not exist',
+            ], 404);
+        }
+        $exist = StudentSection::where('student_id', $request->student_id)->where('section_id', $section->id)->first();
+        if ($exist) {
+            return response()->json([
+                'error' => 'already_enrolled',
+                'message' => 'Already enrolled',
+            ], 400);
+        }
+        $add = new StudentSection;
+        $add->student_id = $request->student_id;
+        $add->section_id = $section->id;
+        $add->save();
+
+        $user = User::find($section->teacher_id);
+        $data = [
+            'id' => $section->id,
+            'teacher_id' => $section->teacher_id,
+            'teacher_name' => $user->name,
+            'section_code' => $section->section_code,
+            'section_name' => $section->section_name,
+        ];
+
+        return response()->json($data);
     }
 }
