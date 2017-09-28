@@ -11,4 +11,9 @@ class StudentAttendance extends Model
         'student_id',
         'date',
     ];
+
+    public function student()
+    {
+        return $this->belongsTo('App\User', 'student_id');
+    }
 }

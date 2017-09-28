@@ -113,11 +113,6 @@ return [
             'text'        => 'Teachers',
             'url'         => '/users',
             'icon'        => 'users',
-        ],
-        [
-            'text'        => 'Students',
-            'url'         => '/students',
-            'icon'        => 'graduation-cap',
         ]
     ],
 

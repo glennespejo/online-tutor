@@ -4,7 +4,7 @@ $(function () {
 
   //Add 
   $("#create_section").on('click', function(){
-  	$('#section_name').val();
+  	$('#section_name').val('');
     actionSection = 'store';
     $('#sectionModalForm').modal('show');
   });

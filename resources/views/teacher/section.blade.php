@@ -18,7 +18,7 @@
             <ul class="nav nav-tabs">
               <li class="active"><a href="#students" data-toggle="tab">Students</a></li>
               <li><a href="#attendance" data-toggle="tab">Attendance</a></li>
-              <li><a href="#file_manager" data-toggle="tab">File Manager</a></li>
+              <li><a href="#file_manager" data-toggle="tab">File Transfer</a></li>
               <li><a href="#exams" data-toggle="tab">Exams</a></li>
             </ul>
             <div class="tab-content">
@@ -63,6 +63,10 @@
             text: message,
             icon: "error",
           });
+        }
+
+        function reload() {
+          setTimeout(function(){ location.reload(); }, 1000);
         }
       </script>
     @endpush

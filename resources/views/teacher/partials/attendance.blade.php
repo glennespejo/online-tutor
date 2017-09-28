@@ -6,19 +6,27 @@
     <table id="attendance_table" class="table table-bordered table-hover">
       <thead>
       <tr>
-      	<th>#</th>
+        <th>Student Name</th>
         <th>Date</th>
-        <th class="no-sort">Action</th>
+        <th>Time In</th>
       </tr>
       </thead>
       <tbody>
-      
+        @if($attendances)
+        @foreach($attendances as $key => $value)
+          <tr>
+            <td>{{$value->student->name}}</td>
+            <td>{{$value->date}}</td>
+            <td>{{$value->created_at->toTimeString()}}</td>
+          </tr>
+        @endforeach
+      @endif
       </tbody>
       <tfoot>
       <tr>
-      	<th>#</th>
+        <th>Student Name</th>
         <th>Date</th>
-        <th class="no-sort">Action</th>
+        <th>Time In</th>
       </tr>
       </tfoot>
     </table>

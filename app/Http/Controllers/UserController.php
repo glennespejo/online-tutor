@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Section;
 use App\StudentSection;
+use App\TeacherData;
+use App\StudentAttendance;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -210,7 +212,10 @@ class UserController extends Controller
 
         $students = StudentSection::where('section_id',$id)->get();
 
+        $exams = TeacherData::where('section_id',$id)->where('key','exams')->get();
+        $files = TeacherData::where('section_id',$id)->where('key','files')->get();
+        $attendances = StudentAttendance::where('section_code',$section->section_code)->get();
 
-        return view('teacher.section', compact('students','section', 'section_routeConfig'));
+        return view('teacher.section', compact('students','section', 'section_routeConfig', 'exams', 'files', 'attendances'));
     }
 }

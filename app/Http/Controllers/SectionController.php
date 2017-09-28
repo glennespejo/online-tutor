@@ -151,12 +151,13 @@ class SectionController extends Controller
             $data = $request->all();
             $teacher_data = [];
             $teacher_data['section_id'] = $data['section_id']; 
+            
             unset($data['section_id']); 
-            $teacher_data['value'] = $data;
+            $teacher_data['value'] = json_encode($data);
             $teacher_data['key']    = 'exams';
-            // TeacherData::create()
+            TeacherData::create($teacher_data);
             \DB::commit();
-            $msg = 'Delete Success!';
+            $msg = 'Add Success!';
         } catch (\Exception $e) {
             \DB::rollBack();
             $error_message = $e->getMessage();

@@ -9,19 +9,22 @@
       <tr>
       	<th>#</th>
         <th>Exam Name</th>
-        <th>Date Created</th>
-        <th class="no-sort">Action</th>
       </tr>
       </thead>
       <tbody>
-      
+      @if($exams)
+        @foreach($exams as $key => $value)
+          <tr>
+            <td>{{$key +1 }}</td>
+            <td>{{json_decode($value->value)->exam_name}}</td>
+          </tr>
+        @endforeach
+      @endif
       </tbody>
       <tfoot>
       <tr>
       	<th>#</th>
         <th>Exam Name</th>
-        <th>Date Created</th>
-        <th class="no-sort">Action</th>
       </tr>
       </tfoot>
     </table>
@@ -35,6 +38,7 @@
   	$('#exam_table').DataTable();
 
   	$("#create_exam").on('click', function(){
+      document.getElementById("exam_form").reset();
 	    $('#ExamModalForm').modal('show');
     });
 
@@ -42,6 +46,15 @@
       var isValid = $("#exam_form").parsley();
       if( !isValid.validate())
         return;
+
+      var viewSectionModal = $('#ExamModalForm');
+
+      var loader_image_bar_obj = $('.loader-image-bar');
+
+      viewSectionModal.find('.modal-content').append(loader_image_bar_obj[0].outerHTML);
+
+      viewSectionModal.find('.loader-image-bar').removeClass('hide');
+
       console.log(config.store_exam);
       $.ajax({
         data: $('#exam_form').serialize(),

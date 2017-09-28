@@ -123,7 +123,7 @@ class ICOapiController extends Controller
                 'message' => 'Section does not exist.',
             ], 404);
         }
-        $files = TeacherData::where('section_id', $section->id)->get();
+        $files = TeacherData::where('section_id', $section->id)->where('key','files')->get();
         $data = [];
         $datas = [];
         foreach ($files as $file) {

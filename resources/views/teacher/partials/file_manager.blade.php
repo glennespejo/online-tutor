@@ -13,7 +13,14 @@
       </tr>
       </thead>
       <tbody>
-      
+      @if($files)
+        @foreach($files as $key => $value)
+          <tr>
+            <td>{{$key +1 }}</td>
+            <td>{{json_decode($value->value)->file_name}}</td>
+          </tr>
+        @endforeach
+      @endif
       </tbody>
       <tfoot>
       <tr>

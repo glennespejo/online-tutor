@@ -13,6 +13,12 @@
           <div class="form-group">
             <a href="#" id="add_question" class="pull-right">Add Question</a>
           </div>
+          <div class="form-group">
+            <label style="padding-right: 0px;" class="col-sm-3 control-label">Exam Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" name="exam_name" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Exam Name">
+            </div>
+          </div>
           <div id="question_div_1">
             <div class="form-group">
               <label style="padding-right: 0px;" class="col-sm-1 control-label">Q:</label>
