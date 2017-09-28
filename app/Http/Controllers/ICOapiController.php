@@ -64,6 +64,7 @@ class ICOapiController extends Controller
             return response()->json($exist);
         }
         $attendance = new StudentAttendance;
+        $request->request->set('date', $date);
         $attendance->fill($request->all())->save();
         return response()->json($attendance);
     }
@@ -78,7 +79,7 @@ class ICOapiController extends Controller
         $section = Section::where('section_code', $request->subject_code)->first();
         if (empty($section)) {
             return response()->json([
-                'error' => 'section_not_exit',
+                'error' => 'section_not_exist',
                 'message' => 'Section does not exist',
             ], 404);
         }
