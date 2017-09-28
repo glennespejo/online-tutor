@@ -23,20 +23,20 @@
             <div class="tab-content">
               <div class="active tab-pane" id="attendance">
                 <!-- Attendance -->
-                
+                @include('teacher.partials.attendance')
                 <!--/. Attendance  -->
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="file_manager">
                 <!-- Files Manager -->
-                
+                @include('teacher.partials.file_manager')
                 <!--/. Files Manager-->
               </div>
               <!-- /.tab-pane -->
 
               <div class="tab-pane" id="exams">
                 <!-- Exam -->
-                
+                @include('teacher.partials.exam')
                 <!--/. Exam-->
               </div>
               <!-- /.tab-pane -->
