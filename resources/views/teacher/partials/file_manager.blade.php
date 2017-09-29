@@ -10,6 +10,7 @@
         <th>#</th>
         <th>File Name</th>
         <th>File Uploaded</th>
+        <th>Download</th>
       </tr>
       </thead>
       <tbody>
@@ -18,6 +19,8 @@
           <tr>
             <td>{{$key +1 }}</td>
             <td>{{json_decode($value->value)->file_name}}</td>
+            <td>{{$value->created_at->toDateTimeString()}}</td>
+            <td><a href="{{json_decode($value->value)->file_destination}}" class="btn btn-xs" download>Download</a></td>
           </tr>
         @endforeach
       @endif
@@ -27,6 +30,7 @@
         <th>#</th>
         <th>File Name</th>
         <th>File Uploaded</th>
+        <th>Download</th>
       </tr>
       </tfoot>
     </table>

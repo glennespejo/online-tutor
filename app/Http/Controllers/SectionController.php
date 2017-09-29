@@ -128,7 +128,7 @@ class SectionController extends Controller
             $name = $file->getClientOriginalName();
             $section = Section::where('section_code', $request->section_code)->first();
             $data = [
-                'file_name' => $name,
+                'file_name' => str_slug($name),
                 'file_destination' => ("/uploads/" . $section->section_code . '/' . $name),
             ];
             $in = [

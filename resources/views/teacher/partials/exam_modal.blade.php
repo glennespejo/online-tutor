@@ -60,6 +60,15 @@
               </div>
             </div>
           </div>
+          <div class="form-group">
+              <label style="padding-right: 0px;" class="col-sm-2 control-label">Status</label>
+              <div class="col-sm-10">
+                <select class="form-control">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                </select>  
+              </div>
+            </div>
         </div>
         <!-- /.box-footer -->
       </form>
