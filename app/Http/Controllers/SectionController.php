@@ -167,6 +167,8 @@ class SectionController extends Controller
 
     public function showExam($id)
     {
-        
+        $exam = TeacherData::find($id);
+        $exam = json_decode($exam->value);
+        return compact('exam');
     }
 }

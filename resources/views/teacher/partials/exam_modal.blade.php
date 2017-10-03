@@ -9,14 +9,15 @@
       <div class="modal-body">
         <form class="form-horizontal" id="exam_form">
         <input type="hidden" name="section_id" value="{{ $section->id }}">
-        <div class="box-body" id="question_div">
+        <div class="box-body">
           <div class="form-group">
             <a href="#" id="add_question" class="pull-right">Add Question</a>
           </div>
+          
           <div class="form-group">
             <label style="padding-right: 0px;" class="col-sm-3 control-label">Exam Name</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" name="exam_name" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Exam Name">
+              <input type="text" class="form-control" id="exam_name" name="exam_name" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Exam Name">
             </div>
           </div>
           <div id="question_div_1">
@@ -32,7 +33,7 @@
                 <div class="input-group input-group-sm">
                   <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
-                        <input type="checkbox" name="answer[1][]" value="A" title="answer">
+                        <input type="radio" checked name="answer[1][]" value="A" title="answer">
                       </span>
                 </div>
               </div>
@@ -43,7 +44,7 @@
                 <div class="input-group input-group-sm">
                   <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
-                        <input type="checkbox" name="answer[1][]" value="B" title="answer">
+                        <input type="radio" name="answer[1][]" value="B" title="answer">
                       </span>
                 </div>
               </div>
@@ -54,21 +55,24 @@
                 <div class="input-group input-group-sm">
                   <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup"placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
-                        <input type="checkbox" name="answer[1][]" value="C"  title="answer">
+                        <input type="radio" name="answer[1][]" value="C"  title="answer">
                       </span>
                 </div>
               </div>
             </div>
           </div>
+          <div id="question_div">
+          </div>
           <div class="form-group">
               <label style="padding-right: 0px;" class="col-sm-2 control-label">Status</label>
               <div class="col-sm-10">
-                <select class="form-control">
+                <select class="form-control" id="status" name="status">
                     <option value="draft">Draft</option>
                     <option value="published">Published</option>
+                    <option value="done">Done</option>
                 </select>  
               </div>
-            </div>
+          </div>
         </div>
         <!-- /.box-footer -->
       </form>

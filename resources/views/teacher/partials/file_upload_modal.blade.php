@@ -11,10 +11,6 @@
         </div>
         <div class="modal-body">
           <div class="form-group" style="position: relative;">
-            <label for="section_name">File Name</label>
-            <input type="name" class="form-control" placeholder="File Name" data-parsley-required="true" data-parsley-trigger="keyup" name="file_name" id="file_name">
-          </div>
-          <div class="form-group" style="position: relative;">
             <input type="file" name="file" id="file">
           </div>
         </div>
