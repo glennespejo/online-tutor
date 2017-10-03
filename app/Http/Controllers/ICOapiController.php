@@ -180,7 +180,7 @@ class ICOapiController extends Controller
                 foreach ($ex->choice as $key2 => $valu) {
                     // get choices
                     if ($key == $key2) {
-                        $choices[] = $valu;
+                        $choices = $valu;
                     }
                 }
                 $questions[$key]['choices'] = $choices;
@@ -192,5 +192,10 @@ class ICOapiController extends Controller
             ];
         }
         return response()->json($datas);
+    }
+
+    public function getAnswers(Request $request)
+    {
+        dd($request);
     }
 }
