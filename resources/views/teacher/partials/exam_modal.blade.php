@@ -15,8 +15,8 @@
           </div>
           
           <div class="form-group">
-            <label style="padding-right: 0px;" class="col-sm-3 control-label">Exam Name</label>
-            <div class="col-sm-9">
+            <label style="padding-right: 0px;" class="col-sm-2 control-label">Exam Name</label>
+            <div class="col-sm-10">
               <input type="text" class="form-control" id="exam_name" name="exam_name" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Exam Name">
             </div>
           </div>

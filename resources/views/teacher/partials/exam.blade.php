@@ -45,31 +45,56 @@
 
     //add exam
   	$("#create_exam").on('click', function(){
+      actionExam = 'store';
+      $('#question_div').html('');
+      $('#question_div_1').show();
+      $('#add_question').show();
+      $("#exam_form :input").attr("disabled", false);
+      $('#submit-exam').show();
       document.getElementById("exam_form").reset();
 	    $('#ExamModalForm').modal('show');
     });
 
     //Edit
     $(".content").on('click', '.edit.btn', function(){
-      actionTeacher = 'edit';
+      actionExam = 'edit';
+      $('#question_div').html('');
+      $('#add_question').show();
       var id = $(this).data('id');
       item_id = id;
       getItemData(id, 'edit');
+      $("#exam_form :input").attr("disabled", false);
+      $('#submit-exam').show();
     });
 
     //view
     $(".content").on('click', '.view.btn', function(){
-      actionTeacher = 'edit';
+      $('#question_div').html('');
+      $('#add_question').hide();
+      actionExam = 'edit';
       var id = $(this).data('id');
       item_id = id;
       getItemData(id, 'view');
       $("#exam_form :input").attr("disabled", true);
+      $('#submit-exam').hide();
     });
 
+
     $('#submit-exam').on('click', function () {
-      var isValid = $("#exam_form").parsley();
-      if( !isValid.validate())
-        return;
+
+      if(actionExam == 'store') {
+        var isValid = $("#question_div_1").parsley();
+        if( !isValid.validate()) {
+          return;
+        }
+        var url = config.store_exam;
+      } else {
+        var isValid = $("#question_div").parsley();
+        if( !isValid.validate()) {
+          return;
+        }
+        var url = config.update_exam;
+      }
 
       var viewSectionModal = $('#ExamModalForm');
 
@@ -79,10 +104,10 @@
 
       viewSectionModal.find('.loader-image-bar').removeClass('hide');
 
-      console.log(config.store_exam);
+
       $.ajax({
         data: $('#exam_form').serialize(),
-        url:  config.store_exam,
+        url:  url,
         cache: false,
         type: 'post',
         dataType: 'json',
@@ -115,7 +140,7 @@
             return;
           }
           viewSectionModal.find('.loader-image-bar').remove();
-          reload();
+          //reload();
           swal("Good job!", data.msg, "success");
         }
       });
@@ -147,6 +172,7 @@
           $('#ExamModalForm').modal('show');
           $('#exam_name').val(data.exam.exam_name);
           $('#status').val(data.exam.status);
+          $('#question_div').append('<input type="hidden" name="exam_id" value="'+data.exam_id+'">')
           $.each( data.exam.question, function (index, question) {
             add_question(index, question, data.exam.choice[index], data.exam.answer[index],action)
           });
@@ -170,7 +196,6 @@
       }
 
       if (answer) {
-        console.log(answer);
         if(answer == 'A')
           answer_a = 'checked';
         if(answer == 'B')
