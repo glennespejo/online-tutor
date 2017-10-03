@@ -19,7 +19,7 @@
             <td>{{$key +1 }}</td>
             <td>{{json_decode($value->value)->exam_name}}</td>
             <td>
-              {!!view('action_exam', ['itemID'=>$value->id])->render()!!}
+              {!!view('action_exam', ['itemID'=>$value->id, 'status' => json_decode($value->value)->status])->render()!!}
             </td>
           </tr>
         @endforeach
@@ -77,6 +77,18 @@
       getItemData(id, 'view');
       $("#exam_form :input").attr("disabled", true);
       $('#submit-exam').hide();
+    });
+
+    //delete
+    $(".content").on('click', '.delete.btn', function(){
+      var id = $(this).data('id');
+      deleteItem(id);
+    });
+
+    //done exam
+    $(".content").on('click', '.done.btn', function(){
+      var id = $(this).data('id');
+      doneItem(id);
     });
 
 
@@ -140,7 +152,7 @@
             return;
           }
           viewSectionModal.find('.loader-image-bar').remove();
-          //reload();
+          reload();
           swal("Good job!", data.msg, "success");
         }
       });
@@ -151,34 +163,6 @@
       add_question(counter);
       counter++;
     });
-
-    function getItemData(id, action) {
-      var route = config.show_exam.replace('@id', id);
-      $.ajax({
-        data: {
-          exam_id: id,
-        },
-        url:  route,
-        cache: false,
-        type: 'GET',
-        dataType: 'json',
-
-        error: function (jqXHR, textStatus, errorThrown) {
-          showErrorMessage(errorThrown);
-        },
-
-        success: function (data) {
-          $('#question_div_1').hide();
-          $('#ExamModalForm').modal('show');
-          $('#exam_name').val(data.exam.exam_name);
-          $('#status').val(data.exam.status);
-          $('#question_div').append('<input type="hidden" name="exam_id" value="'+data.exam_id+'">')
-          $.each( data.exam.question, function (index, question) {
-            add_question(index, question, data.exam.choice[index], data.exam.answer[index],action)
-          });
-        }
-      });
-    };
 
     function add_question (count, question = '', choice = '', answer = '', action = 'edit')
     {
@@ -250,5 +234,110 @@
           '</div>'
       );
     }
+
+    function getItemData(id, action) {
+      var route = config.show_exam.replace('@id', id);
+      $.ajax({
+        data: {
+          exam_id: id,
+        },
+        url:  route,
+        cache: false,
+        type: 'GET',
+        dataType: 'json',
+
+        error: function (jqXHR, textStatus, errorThrown) {
+          showErrorMessage(errorThrown);
+        },
+
+        success: function (data) {
+          $('#question_div_1').hide();
+          $('#ExamModalForm').modal('show');
+          $('#exam_name').val(data.exam.exam_name);
+          $('#status').val(data.exam.status);
+          $('#question_div').append('<input type="hidden" name="exam_id" value="'+data.exam_id+'">')
+          $.each( data.exam.question, function (index, question) {
+            add_question(index, question, data.exam.choice[index], data.exam.answer[index],action)
+          });
+        }
+      });
+    };
+
+    function deleteItem(id) {
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          var route = config.destroy_exam.replace('@id', id);
+            $.ajax({
+              url:  route,
+              cache: false,
+              type: 'DELETE',
+              dataType: 'json',
+
+              error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage(errorThrown);
+              },
+
+              success: function (data) {
+                // if data is a error specific message
+                if (typeof data.error_message !== 'undefined' && data.error_message) {
+                  showErrorMessage(data.error_message);
+                  return;
+                }
+                // reload();
+                swal("Deleted!", data.msg, "success");
+              }
+            });
+
+        } else {
+          swal("Cancelled", "Your Data is safe :)", "error");
+        }
+      });
+    };
+
+    function doneItem(id) {
+      swal({
+        title: "Are you sure?",
+        text: "Once Done, you will not be able to Edit this data!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          var route = config.done_exam;
+            $.ajax({
+              url:  route,
+              data: {'id' : id},
+              cache: false,
+              type: 'post',
+              dataType: 'json',
+
+              error: function (jqXHR, textStatus, errorThrown) {
+                showErrorMessage(errorThrown);
+              },
+
+              success: function (data) {
+                // if data is a error specific message
+                if (typeof data.error_message !== 'undefined' && data.error_message) {
+                  showErrorMessage(data.error_message);
+                  return;
+                }
+                // reload();
+                swal("Done!", data.msg, "success");
+              }
+            });
+
+        } else {
+          swal("Cancelled", "Your Data is safe :)", "error");
+        }
+      });
+    };
   </script>
 @endpush

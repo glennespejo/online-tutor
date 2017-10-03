@@ -53,7 +53,7 @@
               <label style="padding-right: 0px;" class="col-sm-2 control-label">C.</label>
               <div class="col-sm-10">
                 <div class="input-group input-group-sm">
-                  <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup"placeholder="Choice">
+                  <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
                         <input type="radio" name="answer[1][]" value="C"  title="answer">
                       </span>

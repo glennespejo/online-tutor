@@ -29,6 +29,8 @@ class Section extends Model
             'store_exam' => route('teacher.exam'),
             'update_exam' => route('teacher.exam.update'),
             'show_exam' => route('teacher.exam.show', '@id'),
+            'destroy_exam' => route('teacher.exam.destroy', '@id'),
+            'done_exam' => route('teacher.exam.done'),
         ]);
     }
 

@@ -17,9 +17,9 @@
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#students" data-toggle="tab">Students</a></li>
-              <li><a href="#attendance" data-toggle="tab">Attendance</a></li>
-              <li><a href="#file_manager" data-toggle="tab">File Transfer</a></li>
-              <li><a href="#exams" data-toggle="tab">Exams</a></li>
+              <li><a id="tab_attendance" href="#attendance" data-toggle="tab">Attendance</a></li>
+              <li><a id="tab_file_manager" href="#file_manager" data-toggle="tab">File Transfer</a></li>
+              <li><a id="tab_exam" href="#exams" data-toggle="tab">Exam</a></li>
             </ul>
             <div class="tab-content">
               <div class="active tab-pane" id="students">
@@ -56,6 +56,15 @@
     
     @push('js')
       <script type="text/javascript">
+        var tab =  "{{Session::get('tab')}}";
+        
+        if (tab === 'tab_exam')
+          $('#tab_exam').click();
+
+        if (tab === 'tab_file_manager')
+          $('#tab_file_manager').click();
+
+        console.log(tab);
         var config = {!! $section_routeConfig !!};
         function showErrorMessage(message) {
           swal({

@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('add-section-exam', 'SectionController@storeExam')->name('teacher.exam');
 	Route::post('update-section-exam', 'SectionController@updateExam')->name('teacher.exam.update');
 	Route::get('show-section-exam/{exam_id}', 'SectionController@showExam')->name('teacher.exam.show');
+	Route::delete('destroy-section-exam/{exam_id}', 'SectionController@destroyExam')->name('teacher.exam.destroy');
+	Route::post('done-section-exam/', 'SectionController@doneExam')->name('teacher.exam.done');
 
 	Route::resource('bus', 'BusController');	
 	Route::resource('route', 'RouteController');	

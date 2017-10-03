@@ -123,6 +123,7 @@ class SectionController extends Controller
 
     public function uploadFile(Request $request)
     {
+         \Session::flash('tab', 'tab_file_manager');
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $name = $file->getClientOriginalName();
@@ -141,6 +142,7 @@ class SectionController extends Controller
             $file->move("uploads/" . $section->section_code, $file->getClientOriginalName());
             return redirect()->back();
         }
+
         return redirect()->back();
     }
 
@@ -162,6 +164,7 @@ class SectionController extends Controller
             \DB::rollBack();
             $error_message = $e->getMessage();
         }
+        \Session::flash('tab', 'tab_exam');
         return compact('msg', 'error_message');
     }
 
@@ -194,6 +197,45 @@ class SectionController extends Controller
             \DB::rollBack();
             $error_message = $e->getMessage();
         }
+        \Session::flash('tab', 'tab_exam');
+        return compact('msg', 'error_message');
+    }
+
+    public function destroyExam($id)
+    {
+        try {
+
+            \DB::beginTransaction();
+            $exam = TeacherData::find($id);
+            $exam->delete();
+            \DB::commit();
+            $msg = 'Delete Success!';
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            $error_message = $e->getMessage();
+        }
+        \Session::flash('tab', 'tab_exam');
+        return compact('msg', 'error_message');
+    }
+
+    public function doneExam(Request $request)
+    {
+        try {
+
+            $data = $request->all();
+            \DB::beginTransaction();
+            $exam = TeacherData::find($data['id']);
+            $value = json_decode($exam->value);
+            $value->status = 'done';
+            $exam->value =  json_encode($value);
+            $exam->save();
+            \DB::commit();
+            $msg = 'Done Exam!';
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            $error_message = $e->getMessage();
+        }
+        \Session::flash('tab', 'tab_exam');
         return compact('msg', 'error_message');
     }
 }
