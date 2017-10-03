@@ -196,6 +196,28 @@ class ICOapiController extends Controller
 
     public function getAnswers(Request $request)
     {
-        dd($request);
+
+        if ($request->all() === null) {
+            return response()->json([
+                'error' => 'invalid_request',
+                'message' => 'Request is empty',
+            ], 400);
+        }
+        $student_id = $request->student_id;
+        $exam_id = $request->id;
+        $answers = $request->answers;
+        $datas = [];
+        $chen = TeacherData::find($exam_id);
+        $data = [
+            'parent_key' => $exam_id,
+            'section_id' => $chen->section_id,
+            'key' => 'student_answer',
+            'value' => json_encode($answers),
+        ];
+
+        $td = new TeacherData;
+        $td->create($data);
+
+        return response()->json($request->all());
     }
 }
