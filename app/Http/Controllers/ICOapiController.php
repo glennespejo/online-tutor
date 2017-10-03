@@ -155,7 +155,7 @@ class ICOapiController extends Controller
             ], 404);
         }
 
-        $exams = TeacherData::where('section_id', $section->id)->where('key', 'exams')->get();
+        $exams = TeacherData::where('section_id', $section->id)->where('key', 'exams')->where('value', 'like', '%published%')->get();
 
         $datas = [];
         $data = [];
