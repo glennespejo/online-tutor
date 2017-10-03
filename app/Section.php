@@ -27,6 +27,8 @@ class Section extends Model
             'show' => route('section.show', '@id'),
             'teacher_section' => route('teacher.section', '@id'),
             'store_exam' => route('teacher.exam'),
+            'update_exam' => route('teacher.exam.update'),
+            'show_exam' => route('teacher.exam.show', '@id'),
         ]);
     }
 

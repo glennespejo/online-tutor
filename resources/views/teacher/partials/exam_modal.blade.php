@@ -32,7 +32,7 @@
                 <div class="input-group input-group-sm">
                   <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
-                        <input type="checkbox" name="answer[1][]" value="Yes" title="answer">
+                        <input type="checkbox" name="answer[1][]" value="A" title="answer">
                       </span>
                 </div>
               </div>
@@ -43,7 +43,7 @@
                 <div class="input-group input-group-sm">
                   <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
-                        <input type="checkbox" name="answer[1][]" value="Yes" title="answer">
+                        <input type="checkbox" name="answer[1][]" value="B" title="answer">
                       </span>
                 </div>
               </div>
@@ -54,7 +54,7 @@
                 <div class="input-group input-group-sm">
                   <input type="text" class="form-control" name="choice[1][]" data-parsley-required="true" data-parsley-trigger="keyup"placeholder="Choice">
                       <span class="input-group-btn" style="padding-left: 10px;">
-                        <input type="checkbox" name="answer[1][]" value="Yes"  title="answer">
+                        <input type="checkbox" name="answer[1][]" value="C"  title="answer">
                       </span>
                 </div>
               </div>

@@ -9,6 +9,7 @@
       <tr>
       	<th>#</th>
         <th>Exam Name</th>
+        <th>Action</th>
       </tr>
       </thead>
       <tbody>
@@ -17,6 +18,9 @@
           <tr>
             <td>{{$key +1 }}</td>
             <td>{{json_decode($value->value)->exam_name}}</td>
+            <td>
+              {!!view('actions', ['itemID'=>$value->id])->render()!!}
+            </td>
           </tr>
         @endforeach
       @endif
@@ -25,6 +29,7 @@
       <tr>
       	<th>#</th>
         <th>Exam Name</th>
+        <th>Action</th>
       </tr>
       </tfoot>
     </table>
@@ -37,9 +42,19 @@
   <script type="text/javascript">
   	$('#exam_table').DataTable();
 
+
+    //add exam
   	$("#create_exam").on('click', function(){
       document.getElementById("exam_form").reset();
 	    $('#ExamModalForm').modal('show');
+    });
+
+    //Edit
+    $(".content").on('click', '.edit.btn', function(){
+      actionTeacher = 'edit';
+      var id = $(this).data('id');
+      item_id = id;
+      getItemData(id);
     });
 
     $('#submit-exam').on('click', function () {
@@ -80,7 +95,7 @@
                 }
               }
 
-              showErrorMessage("Unable to add section"); // generic error message
+              showErrorMessage("Unable to add exam"); // generic error message
         },
 
         success: function (data) {
@@ -113,7 +128,7 @@
                 '<div class="input-group input-group-sm">'+
                   '<input type="text" class="form-control" name="choice['+counter+'][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">'+
                       '<span class="input-group-btn" style="padding-left: 10px;">'+
-                        '<input type="checkbox" name="answer['+counter+'][]" value="Yes" title="answer">'+
+                        '<input type="checkbox" name="answer['+counter+'][]" value="A" title="answer">'+
                       '</span>'+
                 '</div>'+
               '</div>'+
@@ -124,7 +139,7 @@
                 '<div class="input-group input-group-sm">'+
                   '<input type="text" class="form-control" name="choice['+counter+'][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">'+
                       '<span class="input-group-btn" style="padding-left: 10px;">'+
-                        '<input type="checkbox" name="answer['+counter+'][]" value="Yes" title="answer">'+
+                        '<input type="checkbox" name="answer['+counter+'][]" value="B" title="answer">'+
                       '</span>'+
                 '</div>'+
               '</div>'+
@@ -135,7 +150,7 @@
                 '<div class="input-group input-group-sm">'+
                   '<input type="text" class="form-control" name="choice['+counter+'][]" data-parsley-required="true" data-parsley-trigger="keyup" placeholder="Choice">'+
                       '<span class="input-group-btn" style="padding-left: 10px;">'+
-                        '<input type="checkbox" name="answer['+counter+'][]" value="Yes"  title="answer">'+
+                        '<input type="checkbox" name="answer['+counter+'][]" value="C"  title="answer">'+
                       '</span>'+
                 '</div>'+
               '</div>'+
@@ -144,5 +159,30 @@
       )
       counter++;
     });
+
+    function getItemData(id) {
+      alert(config.show_exam.replace('@id', id));
+      // var route = config.show.replace('@id', id);
+      // $.ajax({
+      //   data: {
+      //     teacher_id: id,
+      //   },
+      //   url:  route,
+      //   cache: false,
+      //   type: 'GET',
+      //   dataType: 'json',
+
+      //   error: function (jqXHR, textStatus, errorThrown) {
+      //     showPopUpCampaignTagError(errorThrown);
+      //   },
+
+      //   success: function (data) {
+      //     $('#teacherModalForm').modal('show');
+      //     $.each(data, function (index, value) {
+      //       $("#" + index).val(value);
+      //     });
+      //   }
+      // });
+    };
   </script>
 @endpush

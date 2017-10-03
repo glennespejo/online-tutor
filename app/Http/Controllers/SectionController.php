@@ -164,4 +164,9 @@ class SectionController extends Controller
         }
         return compact('msg', 'error_message');
     }
+
+    public function showExam($id)
+    {
+        
+    }
 }
