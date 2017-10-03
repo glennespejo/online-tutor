@@ -174,6 +174,7 @@ class ICOapiController extends Controller
                 $questions[$key]['choices'] = $choices;
             }
             $datas[] = [
+                'id' => $exam->id,
                 'exam_name' => $ex->exam_name,
                 'questions' => $questions,
             ];
