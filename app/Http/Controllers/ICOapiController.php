@@ -33,8 +33,9 @@ class ICOapiController extends Controller
         foreach ($sections as $key => $sec) {
             $s[] = Section::where('id', $sec->section_id)->first();
             $at = StudentAttendance::where('date', $date)
-                ->where('section_code', $sec->section_code)
+                ->where('section_code', $s[$key]->section_code)
                 ->where('student_id', $request->student_id)->first();
+
             if ($at) {
                 $ats[] = true;
             } else {
