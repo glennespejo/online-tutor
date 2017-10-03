@@ -22,7 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('students', 'UserController@index_student');
 	Route::resource('section', 'SectionController');
 	Route::post('add-section-exam', 'SectionController@storeExam')->name('teacher.exam');
-	Route::put('update-section-exam', 'SectionController@updateExam')->name('teacher.exam.update');
+	Route::post('update-section-exam', 'SectionController@updateExam')->name('teacher.exam.update');
 	Route::get('show-section-exam/{exam_id}', 'SectionController@showExam')->name('teacher.exam.show');
 
 	Route::resource('bus', 'BusController');	

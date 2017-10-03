@@ -169,6 +169,31 @@ class SectionController extends Controller
     {
         $exam = TeacherData::find($id);
         $exam = json_decode($exam->value);
-        return compact('exam');
+        $exam_id = $id;
+        return compact('exam', 'exam_id');
+    }
+
+    public function updateExam(Request $request)
+    {
+        try {
+
+            \DB::beginTransaction();
+
+            $data = $request->all();
+            $exam_id = $data['exam_id'];
+            //Remove other data
+            unset($data['section_id']); 
+            unset($data['exam_id']); 
+            //update
+            $exam = TeacherData::find($exam_id);
+            $exam->value = json_encode($data);
+            $exam->save();
+            \DB::commit();
+            $msg = 'Update Success!';
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            $error_message = $e->getMessage();
+        }
+        return compact('msg', 'error_message');
     }
 }
