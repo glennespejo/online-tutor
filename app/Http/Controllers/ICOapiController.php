@@ -206,8 +206,16 @@ class ICOapiController extends Controller
         $student_id = $request->student_id;
         $exam_id = $request->id;
         $answers = $request->answers;
+        $answers['student_id'] = $student_id;
         $datas = [];
         $chen = TeacherData::find($exam_id);
+        $checking = TeacherData::where('parent_key', $exam_id)->where('section_id', $chen->section_id)->where('key', 'student_answer')->where('value', 'like', '%"student_id":' . $student_id . '%')->first();
+        if ($checking) {
+            return response()->json([
+                'error' => 'already_taken',
+                'message' => 'Exam is already taken.',
+            ], 400);
+        }
         $data = [
             'parent_key' => $exam_id,
             'section_id' => $chen->section_id,
