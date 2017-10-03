@@ -18,6 +18,7 @@ class CreateTeacherDataTable extends Migration
             $table->integer('section_id')->unsigned();
             $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
             $table->string('key')->nullable();
+            $table->string('parent_key')->nullable();
             $table->longText('value')->nullable();
             $table->timestamps();
         });
