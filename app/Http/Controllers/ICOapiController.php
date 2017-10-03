@@ -26,14 +26,24 @@ class ICOapiController extends Controller
 
     public function getSubj(Request $request)
     {
-
         $sections = StudentSection::where('student_id', $request->student_id)->get();
         $s = [];
+        $ats = [];
+        $date = date('Y-m-d');
         foreach ($sections as $key => $sec) {
             $s[] = Section::where('id', $sec->section_id)->first();
+            $at = StudentAttendance::where('date', $date)
+                ->where('section_code', $sec->section_code)
+                ->where('student_id', $request->student_id)->first();
+            if ($at) {
+                $ats[] = true;
+            } else {
+                $ats[] = false;
+            }
         }
         $data = [];
         $datas = [];
+
         foreach ($s as $key => $section) {
             $user = User::find($section->teacher_id);
             $data = [
@@ -42,6 +52,7 @@ class ICOapiController extends Controller
                 'teacher_name' => $user->name,
                 'section_code' => $section->section_code,
                 'section_name' => $section->section_name,
+                'attend' => $ats[$key],
             ];
             $datas[] = $data;
         }
