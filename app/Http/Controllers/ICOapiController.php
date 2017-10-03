@@ -123,7 +123,7 @@ class ICOapiController extends Controller
                 'message' => 'Section does not exist.',
             ], 404);
         }
-        $files = TeacherData::where('section_id', $section->id)->where('key','files')->get();
+        $files = TeacherData::where('section_id', $section->id)->where('key', 'files')->get();
         $data = [];
         $datas = [];
         foreach ($files as $file) {
@@ -135,6 +135,48 @@ class ICOapiController extends Controller
                 'file_path' => json_decode($file->value)->file_destination,
             ];
             $datas[] = $data;
+        }
+        return response()->json($datas);
+    }
+
+    public function getQuiz(Request $request)
+    {
+        if (!isset($request->section_code)) {
+            return response()->json([
+                'error' => 'section_do_not_exist',
+                'message' => 'Section do not exist.',
+            ], 400);
+        }
+        $section = Section::where('section_code', $request->section_code)->first();
+        if (empty($section)) {
+            return response()->json([
+                'error' => 'section_does_not_exist',
+                'message' => 'Section does not exist.',
+            ], 404);
+        }
+
+        $exams = TeacherData::where('section_id', $section->id)->where('key', 'exams')->get();
+
+        $datas = [];
+        $data = [];
+        foreach ($exams as $exam) {
+            $ex = json_decode($exam->value);
+            $questions = [];
+            foreach ($ex->question as $key => $val) {
+                // get questions
+                $questions[$key]['question'] = $val;
+                foreach ($ex->choice as $key2 => $valu) {
+                    // get choices
+                    if ($key == $key2) {
+                        $choices[] = $valu;
+                    }
+                }
+                $questions[$key]['choices'] = $choices;
+            }
+            $datas[] = [
+                'exam_name' => $ex->exam_name,
+                'questions' => $questions,
+            ];
         }
         return response()->json($datas);
     }

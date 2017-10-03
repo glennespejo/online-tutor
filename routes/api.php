@@ -29,3 +29,4 @@ Route::get('/get/sections', 'ICOapiController@getSubj');
 Route::post('/attendance', 'ICOapiController@attendance');
 Route::post('/enroll/section', 'ICOapiController@enSect');
 Route::get('/get/all/files', 'ICOapiController@getFiles');
+Route::get('/get/quiz', 'ICOapiController@getQuiz');
