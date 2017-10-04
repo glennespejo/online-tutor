@@ -38,6 +38,7 @@
   <!-- /.box-footer -->
 </div>
 @include('teacher.partials.exam_modal')
+@include('teacher.partials.exam_result_modal')
 @push('js')
   <script type="text/javascript">
   	$('#exam_table').DataTable();
@@ -89,6 +90,13 @@
     $(".content").on('click', '.done.btn', function(){
       var id = $(this).data('id');
       doneItem(id);
+    });
+
+    //view results
+    $(".content").on('click', '.view-results.btn', function(){
+      var id = $(this).data('id');
+      item_id = id;
+      getResultData(id);
     });
 
 
@@ -290,7 +298,7 @@
                   showErrorMessage(data.error_message);
                   return;
                 }
-                // reload();
+                reload();
                 swal("Deleted!", data.msg, "success");
               }
             });
@@ -329,13 +337,34 @@
                   showErrorMessage(data.error_message);
                   return;
                 }
-                // reload();
+                reload();
                 swal("Done!", data.msg, "success");
               }
             });
 
         } else {
           swal("Cancelled", "Your Data is safe :)", "error");
+        }
+      });
+    };
+
+    function getResultData(id) {
+      var route = config.show_exam_result.replace('@id', id);
+      $.ajax({
+        url:  route,
+        cache: false,
+        type: 'GET',
+        dataType: 'json',
+
+        error: function (jqXHR, textStatus, errorThrown) {
+          showErrorMessage(errorThrown);
+        },
+
+        success: function (data) {    
+          $('#result_tbody').append(data);
+          $('#exam_results_content').DataTable();
+          $('#ExamResultModalForm').modal('show');
+          
         }
       });
     };

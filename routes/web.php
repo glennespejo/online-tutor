@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('show-section-exam/{exam_id}', 'SectionController@showExam')->name('teacher.exam.show');
 	Route::delete('destroy-section-exam/{exam_id}', 'SectionController@destroyExam')->name('teacher.exam.destroy');
 	Route::post('done-section-exam/', 'SectionController@doneExam')->name('teacher.exam.done');
+	Route::get('show-section-exam-result/{exam_id}', 'SectionController@showExamResult')->name('teacher.exam.show.result');
 
 	Route::resource('bus', 'BusController');	
 	Route::resource('route', 'RouteController');	

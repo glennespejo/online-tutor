@@ -31,6 +31,7 @@ class Section extends Model
             'show_exam' => route('teacher.exam.show', '@id'),
             'destroy_exam' => route('teacher.exam.destroy', '@id'),
             'done_exam' => route('teacher.exam.done'),
+            'show_exam_result' => route('teacher.exam.show.result', '@id'),
         ]);
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Section;
+use App\User;
 use App\TeacherData;
 use Illuminate\Http\Request;
 
@@ -224,8 +225,66 @@ class SectionController extends Controller
 
             $data = $request->all();
             \DB::beginTransaction();
-            $exam = TeacherData::find($data['id']);
-            $value = json_decode($exam->value);
+
+            //get student answer
+            $exam_result            = [];
+            $exam                   = TeacherData::find($data['id']);
+            $value                  = json_decode($exam->value);
+            $total_question =       count((array)$value->question);
+            $exam_answer_key        = $value->answer;
+            $exam_answer_choice     = $value->choice;
+            $student_answers        = TeacherData::where('parent_key',$data['id'])->where('key','student_answer')->get();
+
+            foreach ($student_answers as $key =>  $student) {
+                $student_data = json_decode($student->value);
+                $student = json_decode($student);
+                $exam_result[$key]['student_id'] = $student_data->student_id;
+
+                $student_score = 0;
+                foreach ($student_data->answers as $student_value) {
+                   
+                   //get question #
+                    $question_no = intval(preg_replace('/[^0-9]+/', '', $student_value->name), 10);
+
+                    //get the  answer in qusetion #
+                    $right_answer = $exam_answer_key->$question_no;
+
+                    //change Letter Key to index #
+                    switch ($right_answer[0]) {
+                        case 'A':
+                            $right_answer_index = 0;
+                            break;
+                        case 'B':
+                            $right_answer_index = 1;
+                            break;
+                        case 'C':
+                            $right_answer_index = 2;
+                            break;
+                    }
+
+                    //get the answer value
+                    $right_answer_value = $exam_answer_choice->$question_no[$right_answer_index];
+
+                    //compair stundent answer to right answer
+                    
+
+                    if ($right_answer_value == $student_value->value) {
+                        
+                        $student_score++;
+                    }
+                    
+                }
+                $exam_result[$key]['student_score'] = $student_score  . ' out of ' . $total_question;
+            }
+
+            //save results
+            TeacherData::create([
+                'section_id'    => $exam->section_id,
+                'key'           => 'exam_result',
+                'parent_key'    => $data['id'],
+                'value'         => json_encode($exam_result)
+            ]);   
+
             $value->status = 'done';
             $exam->value =  json_encode($value);
             $exam->save();
@@ -238,4 +297,21 @@ class SectionController extends Controller
         \Session::flash('tab', 'tab_exam');
         return compact('msg', 'error_message');
     }
+
+    public function showExamResult($id)
+    {
+        $exam_result = TeacherData::where('parent_key', $id)->where('key', 'exam_result')->first();
+        $results =  json_decode($exam_result->value);
+        $tbody = '';
+        foreach ($results as $key => $student_data) {
+
+            $user_data = User::find($student_data->student_id);
+            $tbody .= '<tr>';
+            $tbody .= '<td>' . $user_data->name . '</td>';
+            $tbody .= '<td>' . $student_data->student_score . '</td>';
+            $tbody .= '</tr>';
+        }
+        return response()->json($tbody);
+    }
+
 }

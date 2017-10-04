@@ -9,7 +9,7 @@
 @endif
 
 @if ($status == 'done')
-	<button type="button" data-id="{{ $itemID }}" class="view btn bg-default btn-flat btn-sm">View Results</button>
+	<button type="button" data-id="{{ $itemID }}" class="view-results btn bg-default btn-flat btn-sm">View Results</button>
 @endif
 
 
