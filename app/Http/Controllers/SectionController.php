@@ -298,6 +298,20 @@ class SectionController extends Controller
         return compact('msg', 'error_message');
     }
 
-    
+    public function showExamResult($id)
+    {
+        $exam_result = TeacherData::where('parent_key', $id)->where('key', 'exam_result')->first();
+        $results =  json_decode($exam_result->value);
+        $tbody = '';
+        foreach ($results as $key => $student_data) {
+
+            $user_data = User::find($student_data->student_id);
+            $tbody .= '<tr>';
+            $tbody .= '<td>' . $user_data->name . '</td>';
+            $tbody .= '<td>' . $student_data->student_score . '</td>';
+            $tbody .= '</tr>';
+        }
+        return response()->json($tbody);
+    }
 
 }
