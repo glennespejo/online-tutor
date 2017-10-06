@@ -360,7 +360,8 @@
           showErrorMessage(errorThrown);
         },
 
-        success: function (data) {    
+        success: function (data) {  
+          $('#result_tbody').html('');  
           $('#result_tbody').append(data);
           $('#exam_results_content').DataTable();
           $('#ExamResultModalForm').modal('show');
